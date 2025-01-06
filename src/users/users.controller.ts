@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { UserEntity } from './entities/user.entity';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -19,6 +20,7 @@ export class UsersController {
   }
 
   @Get()
+  //@UseGuards(JwtGuard)
   @ApiOkResponse({type: UserEntity, isArray: true})
   findAll() {
     return this.usersService.findAll();

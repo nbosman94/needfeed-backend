@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserEntity } from './entities/user.entity';
+import { UserResponseDto } from './dto/reponse-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -37,6 +38,10 @@ export class UsersService {
     return this.prisma.user.findUnique({where: {id}})
   }
 
+  findByEmail(email: string){
+    return this.prisma.user.findUnique({where: {email}})
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.prisma.user.update({
       where: {id},
@@ -46,5 +51,13 @@ export class UsersService {
 
   remove(id: number) {
     return this.prisma.user.delete({where: {id}})
+  }
+
+  getUserdetails(user: UserResponseDto){
+    return {
+      id: user.id,
+      email: user.email,
+      username: user.username
+    }
   }
 }
