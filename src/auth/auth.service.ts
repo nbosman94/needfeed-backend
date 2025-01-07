@@ -16,13 +16,13 @@ export class AuthService {
     }
 
     async validatePasswordMatch(password: string, hashedpassword: string): Promise<boolean>{
-        if (password === hashedpassword){
-            return true;
-        }
-        else {
-            return false;
-        }
-        //return bcrypt.compare(password, hashedpassword);
+        // if (password === hashedpassword){
+        //     return true;
+        // }
+        // else {
+        //     return false;
+        // }
+        return bcrypt.compare(password, hashedpassword);
     }
 
     async register(user: Readonly<CreateUserDto>): Promise<UserResponseDto | null >{
@@ -50,7 +50,14 @@ export class AuthService {
         const {email, password} = existingUser;
         const validatedUser = await this.validateUser(email, password);
         if(!validatedUser) throw new HttpException("Credentials are not valid", HttpStatus.UNAUTHORIZED);
-        const jwt = await this.jwtService.signAsync({existingUser});
+        
+        const payload = {
+            id: validatedUser.id,
+            email: validatedUser.email,
+            username: validatedUser.username
+        }
+        
+        const jwt = await this.jwtService.signAsync({payload});
         return ({token: jwt});
     }
 
