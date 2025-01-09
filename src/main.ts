@@ -6,7 +6,7 @@ import * as cors from 'cors';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //app.enableCors();
-  app.use(cors({ origin: 'http://localhost:5173' }));
+  app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174' ] }));
 
   const config = new DocumentBuilder()
     .setTitle('Need Feed')
