@@ -10,7 +10,4 @@ export class CreateUserDto {
 
     @ApiProperty()
     password: string
-
-    @ApiProperty()
-    list: List[]
 }

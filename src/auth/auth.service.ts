@@ -26,12 +26,12 @@ export class AuthService {
     }
 
     async register(user: Readonly<CreateUserDto>): Promise<UserResponseDto | null >{
-        const {username, password: initalpassword, email, list} = user;
+        const {username, password: initalpassword, email} = user;
         const existingUser = await this.usersService.findByEmail(email);
         if(existingUser) throw new HttpException('Account already exists with this email', HttpStatus.CONFLICT);
         const password = await this.hassPassword(initalpassword);
         // Creating a new user with hashedpassword
-        const newUser = await this.usersService.create({email, username, password, list})
+        const newUser = await this.usersService.create({email, username, password})
         return this.usersService.getUserdetails(newUser);
     }
 

@@ -8,8 +8,8 @@ export class ListController{
     constructor(private readonly listService: ListService){}
 
     @Post()
-    async create(@Body() createListDto : CreateListDto, updateUserDto: UpdateUserDto){
-        const list = await this.listService.create(createListDto, updateUserDto);
+    async create(@Body() createListDto : CreateListDto, id: number){
+        const list = await this.listService.create(createListDto, id);
         return list;
     }
 

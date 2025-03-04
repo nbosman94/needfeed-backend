@@ -16,12 +16,7 @@ export class UsersService {
         email: createUserDto.email,
         username: createUserDto.username,
         password: createUserDto.password,
-        lists: {
-          create: [],  // Creates an empty list
-        },
-      },
-      include: {
-        lists: true,
+    
       },
     });
   }
